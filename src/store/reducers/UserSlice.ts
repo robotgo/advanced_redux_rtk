@@ -21,7 +21,20 @@ export const userSlice = createSlice({
   reducers: {
     increment(state, action: PayloadAction<number>) {
       state.count += action.payload;
-    }
+    },
+    usersFetching(state, action: PayloadAction) {
+      state.isLoading = true
+      state.users = []
+    },
+    usersFetchingSuccess(state, action: PayloadAction<IUser[]>) {
+      state.isLoading = false
+      state.error = ''
+      state.users = action.payload
+    },
+    usersFetchingError(state, action: PayloadAction<string>) {
+      state.isLoading = false
+      state.error = action.payload
+    },
   }
 })
 
