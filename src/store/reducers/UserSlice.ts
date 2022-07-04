@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../models/IUser";
+import { fetchUsers } from "./ActionCreators";
 
 interface UserState {
   users: IUser[];
@@ -22,19 +23,34 @@ export const userSlice = createSlice({
     increment(state, action: PayloadAction<number>) {
       state.count += action.payload;
     },
-    usersFetching(state, action: PayloadAction) {
+    // usersFetching(state, action: PayloadAction) {
+    //   state.isLoading = true
+    //   state.users = []
+    // },
+    // usersFetchingSuccess(state, action: PayloadAction<IUser[]>) {
+    //   state.isLoading = false
+    //   state.error = ''
+    //   state.users = action.payload
+    // },
+    // usersFetchingError(state, action: PayloadAction<string>) {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // },
+  },
+  extraReducers: {
+    [fetchUsers.pending.type]: (state, action: PayloadAction) => {
       state.isLoading = true
       state.users = []
     },
-    usersFetchingSuccess(state, action: PayloadAction<IUser[]>) {
+    [fetchUsers.fulfilled.type]: (state, action: PayloadAction<IUser[]>) => {
       state.isLoading = false
       state.error = ''
       state.users = action.payload
     },
-    usersFetchingError(state, action: PayloadAction<string>) {
+    [fetchUsers.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false
       state.error = action.payload
-    },
+    }
   }
 })
 
