@@ -5,7 +5,7 @@ import PostItem from "./PostItem"
 const PostContainer = () => {
   const [limit, setLimit] = useState(10)
   const { data: posts, error, isLoading, refetch } = postAPI.useFetchAllPostsQuery(limit, {
-    pollingInterval: 1000
+    // pollingInterval: 1000
   })
   // Проверка RTK Query, меняем параметр запроса. Для PostContainer данные меняются, для PostContainer2 нет
   useEffect(() => {
